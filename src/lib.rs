@@ -1,4 +1,5 @@
-#[doc = include_str!("../README.md")]
+#![doc = include_str!("../README.md")]
+
 mod new_with_key;
 mod security;
 mod sign;

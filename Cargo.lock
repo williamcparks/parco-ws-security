@@ -268,7 +268,7 @@ checksum = "42f5e15c9953c5e4ccceeb2e7382a716482c34515315f7b03532b8b4e8393d2d"
 
 [[package]]
 name = "parco-ws-security"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "base64",
  "chrono",
@@ -279,9 +279,9 @@ dependencies = [
 
 [[package]]
 name = "parco-xml"
-version = "0.1.1"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9b799d4d566644cdbefd4a0e1f8510fd37ea41abfbdbb9c3713a9cecb450b669"
+checksum = "4d677d8fc379669016ca5d11265ec3089b5ba0d095421958370c9e2ae1f659b8"
 dependencies = [
  "parco-xml-macros",
  "thiserror",
@@ -289,9 +289,9 @@ dependencies = [
 
 [[package]]
 name = "parco-xml-macros"
-version = "0.1.0"
+version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "54bcfd718e1fbd7030be53ff1aed20ff5e5d77cc1a772662f9a24cadac41d845"
+checksum = "edf0ea60e98dc1733a25456e3bd6e2d287fe95ab4e5777b241cd0e2663259f0f"
 dependencies = [
  "proc-macro2",
  "quote",

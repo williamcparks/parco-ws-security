@@ -9,6 +9,8 @@ use crate::Timestamp;
 pub struct SignedInfo {
     /// Base64-encoded SHA-1 digest of the referenced XML.
     pub digest_value: String,
+    /// the uuid used for the wssu:Id field from the timestamp, from [`uuid`](crate::BinarySecurityToken::uuid)
+    pub timestamp_uuid_with_hash: String,
 }
 
 impl SignedInfo {
@@ -21,7 +23,10 @@ impl SignedInfo {
         let digest = hasher.finalize();
         let digest_value = base64::engine::general_purpose::STANDARD.encode(digest);
 
-        Self { digest_value }
+        Self {
+            digest_value,
+            timestamp_uuid_with_hash: timestamp.uuid_with_hash.clone(),
+        }
     }
 }
 
@@ -35,7 +40,7 @@ xml! {
     dsig:SignedInfo {
         dsig:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" {}
         dsig:SignatureMethod  Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" {}
-        dsig:Reference URI="#_0" {
+        dsig:Reference URI=(self.timestamp_uuid_with_hash) {
             dsig:Transforms {
                 dsig:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" {}
             }

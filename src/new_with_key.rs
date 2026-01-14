@@ -10,7 +10,9 @@ impl<'a> Security<'a> {
         binary_security_token: &'a str,
         private_key: RsaPrivateKey,
     ) -> Self {
-        let timestamp = Timestamp::now(Duration::minutes(5));
+        let timestamp_uuid = BinarySecurityToken::uuid();
+
+        let timestamp = Timestamp::now(Duration::minutes(5), timestamp_uuid.clone());
         let signed_info = SignedInfo::new(&timestamp);
         let signature = signed_info.sign_with_private_key(private_key);
 
@@ -29,7 +31,9 @@ impl<'a> Security<'a> {
         binary_security_token: &'a str,
         signing_key: &SigningKey<Sha1>,
     ) -> Self {
-        let timestamp = Timestamp::now(Duration::minutes(5));
+        let timestamp_uuid = BinarySecurityToken::uuid();
+
+        let timestamp = Timestamp::now(Duration::minutes(5), timestamp_uuid.clone());
         let signed_info = SignedInfo::new(&timestamp);
         let signature = signed_info.sign_with_signing_key(signing_key);
 

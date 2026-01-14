@@ -2,7 +2,7 @@ use chrono::Duration;
 use rsa::{RsaPrivateKey, pkcs1v15::SigningKey};
 use sha1::Sha1;
 
-use crate::{Security, SignedInfo, Timestamp};
+use crate::{BinarySecurityToken, Security, SignedInfo, Timestamp};
 
 impl<'a> Security<'a> {
     /// Constructs a WS-Security header using an RSA private key.
@@ -13,6 +13,8 @@ impl<'a> Security<'a> {
         let timestamp = Timestamp::now(Duration::minutes(5));
         let signed_info = SignedInfo::new(&timestamp);
         let signature = signed_info.sign_with_private_key(private_key);
+
+        let binary_security_token = BinarySecurityToken::new(binary_security_token);
 
         Self {
             signed_info,
@@ -30,6 +32,8 @@ impl<'a> Security<'a> {
         let timestamp = Timestamp::now(Duration::minutes(5));
         let signed_info = SignedInfo::new(&timestamp);
         let signature = signed_info.sign_with_signing_key(signing_key);
+
+        let binary_security_token = BinarySecurityToken::new(binary_security_token);
 
         Self {
             signed_info,

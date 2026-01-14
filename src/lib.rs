@@ -7,6 +7,7 @@ mod sign;
 mod signed_info;
 mod timestamp;
 
+pub use security::BinarySecurityToken;
 pub use security::Security;
 pub use signed_info::SignedInfo;
 pub use timestamp::Timestamp;

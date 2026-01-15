@@ -6,6 +6,7 @@ mod security;
 mod sign;
 mod signed_info;
 mod timestamp;
+mod wssu_id;
 
 pub use security::BinarySecurityToken;
 pub use security::Security;
@@ -22,6 +23,8 @@ pub mod crypto {
     pub use chrono;
     pub use rsa;
     pub use sha1;
+
+    pub use crate::wssu_id::WSSUId;
 
     #[cfg_attr(docsrs, doc(cfg(feature = "cms-sign")))]
     #[cfg(feature = "cms-sign")]

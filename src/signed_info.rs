@@ -2,15 +2,15 @@ use base64::Engine;
 use parco_xml::{Xml, xml};
 use sha1::{Digest, Sha1};
 
-use crate::Timestamp;
+use crate::{Timestamp, crypto::WSSUId};
 
 /// XML Signature metadata containing the digest of the signed content.
 #[derive(Clone, Debug)]
 pub struct SignedInfo {
     /// Base64-encoded SHA-1 digest of the referenced XML.
     pub digest_value: String,
-    /// the uuid used for the wssu:Id field from the timestamp, from [`uuid`](crate::BinarySecurityToken::uuid)
-    pub timestamp_uuid_with_hash: String,
+    /// the wssu id used for the wssu:Id field from the timestamp, from [`WSSUId`]
+    pub timestamp_wssu_id: WSSUId,
 }
 
 impl SignedInfo {
@@ -25,7 +25,7 @@ impl SignedInfo {
 
         Self {
             digest_value,
-            timestamp_uuid_with_hash: timestamp.uuid_with_hash.clone(),
+            timestamp_wssu_id: timestamp.wssu_id,
         }
     }
 }
@@ -40,7 +40,7 @@ xml! {
     dsig:SignedInfo {
         dsig:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" {}
         dsig:SignatureMethod  Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" {}
-        dsig:Reference URI=(self.timestamp_uuid_with_hash) {
+        dsig:Reference URI=(self.timestamp_wssu_id.with_hash()) {
             dsig:Transforms {
                 dsig:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" {}
             }
